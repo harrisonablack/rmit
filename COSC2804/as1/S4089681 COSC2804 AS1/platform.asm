@@ -1,0 +1,41 @@
+.ORIG x3000
+
+GETP
+
+
+ST R0, I_X
+ST R2, I_Z
+
+LD R3, STONE
+
+LD R4, WIDTH
+
+JSR ZLOOP
+
+
+HALT
+
+I_X	.FILL #0
+I_Z .FILL #0
+STONE .FILL #1
+LENGTH .FILL #4 ; do not remove
+WIDTH .FILL #4 ; do not remove
+
+XLOOP
+	ADD R0, R0, #1
+	SETB
+	REG
+	ADD R5, R5, #-1
+	BRp XLOOP
+	RET
+
+ZLOOP
+	LD, R5, LENGTH
+	LD, R0, I_X
+	ADD R2, R2, #1
+	JSR XLOOP
+	ADD R4, R4, #-1
+	BRp ZLOOP
+	HALT
+
+.END
